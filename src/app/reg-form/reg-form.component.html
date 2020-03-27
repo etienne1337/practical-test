@@ -1,0 +1,208 @@
+<form [formGroup]="registerForm" novalidate (ngSubmit)="onSubmit()" class="mb-5">
+	<div class="row mt-5">
+		<h1 style="font-size: xx-large">Register your business</h1>
+	</div>
+	<div class="row">
+		<mat-card-title style="font-weight: lighter">Lets get started</mat-card-title>
+	</div>
+	<!-- IMAGE SELECTOR -->
+	<div class="row justify-content-center">
+		<div class="col-lg-8 col-md-6 mt-4 pt-4 form-group">
+				<mat-label>Image or Logo</mat-label>
+				<mat-form-field appearance="outline" style="cursor: pointer;"  (click)="onSelectImage()">
+					<input matInput placeholder="A logo helps persoalize your account" style="cursor: pointer;" readonly="true" >
+					<mat-icon matSuffix>add_a_photo</mat-icon>
+				</mat-form-field>
+		</div>
+		<div class="col-lg-4 col-md-6 text-center">
+			<a (click)="onSelectImage()" style="cursor: pointer;">
+				<img mat-card-image src="../../assets/Untitled.png" class="img-fluid" alt="placeholder">
+			</a>
+		</div>
+	</div>
+
+	<!-- GENERAL INFORMATION -->
+	<div class="row mb-4">
+		<mat-card-title>General information</mat-card-title>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>Business name*</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Business name" formControlName="companyName">
+				<mat-error *ngIf="registerForm.controls['companyName'].hasError('required')">
+					*Business name is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			<mat-label>Legal business name*</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Legal business name" formControlName="legalName">
+				<mat-error *ngIf="registerForm.controls['legalName'].hasError('required')">
+					*Legal business name is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>Business country*</mat-label>
+			<mat-form-field appearance="outline">
+				<mat-select placeholder="Select a country" formControlName="country">
+					<mat-option *ngFor="let state of states" [value]="state.abbreviation">
+						{{ state.name }}
+					</mat-option>
+				</mat-select>
+				<mat-error *ngIf="registerForm.controls['country'].hasError('required')">
+					*Country is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			<mat-label>Business entity*</mat-label>
+			<mat-form-field appearance="outline">
+				<mat-select placeholder="Select an entity" formControlName="entity">
+					<mat-option *ngFor="let entity of entities" [value]="entity.abbreviation">
+						{{ entity.name }}
+					</mat-option>
+				</mat-select>
+				<mat-error *ngIf="registerForm.controls['entity'].hasError('required')">
+					*Entity type is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>Business registration*</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Number" formControlName="registration">
+				<mat-error *ngIf="registerForm.controls['registration'].hasError('required')">
+					*Business registration number is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			<mat-label>Business VAT*</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Number" formControlName="vat">
+				<mat-error *ngIf="registerForm.controls['vat'].hasError('required')">
+					*Business VAT number is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-lg-12 form-group">
+			<mat-label>Business overview*</mat-label>
+			<mat-form-field appearance="outline">
+				<textarea matInput placeholder="What do you do?" formControlName="overview" rows="6"></textarea>
+				<mat-error *ngIf="registerForm.controls['overview'].hasError('required')">
+					Overview is <strong>required</strong>
+				</mat-error>
+				<mat-error *ngIf="registerForm.controls['overview'].hasError('minlength')">
+					Alteast <strong>20</strong> characters are required
+				</mat-error>
+				<mat-hint>Use 20 or more characters.</mat-hint>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<!-- CONTACT INFORMATION -->
+	<div class="row mb-4">
+		<mat-card-title class="heading" style="margin-top: 30px;">Contact information</mat-card-title>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-12 col-xl-6 form-group">
+			<mat-label>Business email*</mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput placeholder="Business Email" formControlName="email">
+					<mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+						*Business email is <strong>required</strong>
+					</mat-error>
+				</mat-form-field>
+		</div>
+		<div class="col-xl-2 col-4 form-group">
+			<mat-label>Telephone</mat-label>
+			<mat-form-field appearance="outline" class="half-width" style="padding-right: 0px;">
+				<mat-select placeholder="Select" formControlName="cellPrefix">
+					<mat-option *ngFor="let prefix_code of prefix_codes" [value]="prefix_code.abbreviation" 
+					style="background-image: url(../../assets/south-africa.svg); background-repeat: no-repeat;">
+					 <span class="ml-5">{{ prefix_code.name }}</span>
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-xl-4 col-8 form-group mt-4">
+			<mat-form-field appearance="outline" >
+				<input matInput placeholder="000 000 0000" formControlName="cellphone">
+			</mat-form-field>
+		</div>
+	</div>
+
+
+	<!-- PHYSICAL ADDRESS -->
+	<div class="row mb-4">
+		<mat-card-title class="heading">Physical address</mat-card-title>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>City</mat-label>
+			<mat-form-field appearance="outline">
+				<mat-select placeholder="Select a city" formControlName="city">
+					<mat-option *ngFor="let city of cities" [value]="city.abbreviation">
+						{{ city.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			<mat-label>Suburb</mat-label>
+			<mat-form-field appearance="outline">
+				<mat-select placeholder="Select a suburb" formControlName="suburb">
+					<mat-option *ngFor="let suburb of suburbs" [value]="suburb.abbreviation">
+						{{ suburb.name }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>Street address</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Street address" formControlName="street">
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			<mat-label>Apt / Suite / Other</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Apt / Suite / Other" formControlName="unit">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-lg-6 form-group">
+			<mat-label>Postal / Zip code</mat-label>
+			<mat-form-field appearance="outline">
+				<input matInput placeholder="Postal / Zip code" formControlName="zip">
+			</mat-form-field>
+		</div>
+		<div class="col-lg-6 form-group">
+			
+		</div>
+	</div>
+	<div class="row justify-content-center mt-4">
+		<div class="col-6 text-center">
+			<button type="button" class="btn btn-outline-danger btn-lg btn-block font-weight-bold">Cancel</button>
+		</div>
+		<div class="col-6 text-center">
+			<button [disabled]="!isAllValid" [ngStyle]="{'background-color': isAllValid === true ? 'info' : 'grey' }"  type="submit"
+			 class="btn btn-primary btn-lg btn-block font-weight-bold">Confirm</button>
+		</div>
+	</div>
+</form>
